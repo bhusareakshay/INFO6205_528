@@ -68,7 +68,7 @@ public class Population {
 	 */
 	public Candidate createCandidate() {
 		Candidate candidate = new Candidate();
-		List<String> chromosomeList = null;
+		List<String> chromosomeList = candidate.getChromosomesList();
 		List<Integer> machineList = new ArrayList<Integer>(Generator.getMachineMap().keySet());
 		
 		/*
@@ -80,7 +80,7 @@ public class Population {
 				for(int j = 0; j<Constants.TOTAL_JOBS; j++) {
 					operationJob[i][j] = machineList.get(j);
 					String chromosome = String.format("%02d", i)+String.format("%02d", j)+String.format("%02d", operationJob[i][j]);
-					chromosomeList = candidate.getChromosomesList();
+					
 					chromosomeList.add(chromosome);
 				}
 			}
