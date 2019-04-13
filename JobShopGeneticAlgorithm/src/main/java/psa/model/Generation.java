@@ -7,18 +7,18 @@ import psa.system.Candidate;
 
 public class Generation {
 
-	private int fittest;
+	private double fittest;
 	private List<Candidate> candidateList;
 	
 	public Generation() {
 		candidateList = new ArrayList<Candidate>();
 	}
 
-	public int getFittest() {
+	public double getFittest() {
 		return fittest;
 	}
 
-	public void setFittest(int fittest) {
+	public void setFittest(double fittest) {
 		this.fittest = fittest;
 	}
 

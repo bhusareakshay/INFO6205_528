@@ -19,7 +19,7 @@ public class App
 {
     public static void main( String[] args )
     {
-    	List<Candidate> candidatelist = null;
+  
         System.out.println( "Hello World!" );
         Generator.getInstance();
        Population p = Population.getInstance();
@@ -27,11 +27,8 @@ public class App
        ExpressionGeneration  eg = new ExpressionGeneration();
        eg.CalculateExpression();
 
-       Generation currentGen = p.getGenerationMap().get(Collections.max(p.getGenerationMap().keySet()));
-       
-       candidatelist = currentGen.getCandidateList();
-   	FitnessCalculation fit = new FitnessCalculation();
-   	fit.fitness(candidatelist);
+       FitnessCalculation fit = new FitnessCalculation();
+       fit.fitness();
     
     
     }
