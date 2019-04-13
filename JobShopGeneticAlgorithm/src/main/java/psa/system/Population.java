@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import psa.helper.Generator;
 import psa.model.*;
 
 import psa.model.Constants;
@@ -15,11 +16,13 @@ public class Population {
 	private static Population population;
 	private int[][] operationJob;
 	private Map<Integer, Generation> generationMap;
-	
+
 	private Population() {
 		operationJob = new int[Constants.TOTAL_JOBS][Constants.TOTAL_OPERATIONS];
 		generationMap = new HashMap<Integer, Generation>();
 		createGeneration0();
+		//Generator.getInstance().timeArray();
+		
 	}
 	
 	public static Population getInstance() {
@@ -65,7 +68,7 @@ public class Population {
 	 */
 	public Candidate createCandidate() {
 		Candidate candidate = new Candidate();
-		List<String> chromosomeList = null;
+		List<String> chromosomeList = candidate.getChromosomesList();
 		List<Integer> machineList = new ArrayList<Integer>(Generator.getMachineMap().keySet());
 		
 		/*
@@ -77,13 +80,13 @@ public class Population {
 				for(int j = 0; j<Constants.TOTAL_JOBS; j++) {
 					operationJob[i][j] = machineList.get(j);
 					String chromosome = String.format("%02d", i)+String.format("%02d", j)+String.format("%02d", operationJob[i][j]);
-					chromosomeList = candidate.getChromosomesList();
+					
 					chromosomeList.add(chromosome);
 				}
 			}
 			
 			candidate.setChromosomesList(chromosomeList);
-			System.out.println(chromosomeList);
+			//System.out.println(chromosomeList);
 			return candidate;
 	}
 }
