@@ -80,7 +80,7 @@ public class Population {
 				chromosomeList.add(chromosome);
 			}
 		}
-		//System.out.println(chromosomeList);
+		System.out.println(chromosomeList);
 		candidate.setChromosomesList(chromosomeList);
 		return candidate;
 	}
