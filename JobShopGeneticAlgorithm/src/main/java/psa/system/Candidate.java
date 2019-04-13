@@ -44,7 +44,7 @@ public class Candidate {
 		public int compare(Candidate c1, Candidate c2) {
 			double Fit1 = c1.getFitness();
 			double Fit2 = c2.getFitness();
-			return Double.compare(Fit1,Fit2);
+			return Double.compare(Fit2,Fit1);
 		}
 	};
 	
