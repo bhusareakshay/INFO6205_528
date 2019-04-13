@@ -18,7 +18,7 @@ public class Population {
 	private Map<Integer, Generation> generationMap;
 
 	private Population() {
-		operationJob = new int[Constants.TOTAL_JOBS][Constants.TOTAL_OPERATIONS];
+		operationJob = new int[Constants.TOTAL_OPERATIONS][Constants.TOTAL_JOBS];
 		generationMap = new HashMap<Integer, Generation>();
 		createGeneration0();
 		//Generator.getInstance().timeArray();
@@ -77,12 +77,17 @@ public class Population {
 		Collections.shuffle(machineList);
 			for(int i = 0; i<Constants.TOTAL_OPERATIONS; i++) {
 				Collections.shuffle(machineList);
+				int k =0;
 				for(int j = 0; j<Constants.TOTAL_JOBS; j++) {
-					operationJob[i][j] = machineList.get(j);
+					/*if(j>=machineList.size()) {
+						k =0;
+					}*/
+					operationJob[i][j] = machineList.get(j%machineList.size());
 					String chromosome = String.format("%02d", i)+String.format("%02d", j)+String.format("%02d", operationJob[i][j]);
 					
 					chromosomeList.add(chromosome);
 				}
+				
 			}
 			
 			candidate.setChromosomesList(chromosomeList);
