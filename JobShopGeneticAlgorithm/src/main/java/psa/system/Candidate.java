@@ -1,13 +1,14 @@
 package psa.system;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Candidate {
 
 	
 	private List<String> chromosomesList;
-	private int fitness;
+	private double fitness;
 	private int tMax;
 	
 	public Candidate() {
@@ -15,11 +16,11 @@ public class Candidate {
 	}
 	
 	
-	public int getFitness() {
+	public double getFitness() {
 		return fitness;
 	}
 
-	public void setFitness(int fitness) {
+	public void setFitness(double fitness) {
 		this.fitness = fitness;
 	}
 
@@ -39,6 +40,12 @@ public class Candidate {
 		this.chromosomesList = chromosomesList;
 	}
 
-	
+	public static Comparator<Candidate> CanComparator = new Comparator<Candidate>() {
+		public int compare(Candidate c1, Candidate c2) {
+			double Fit1 = c1.getFitness();
+			double Fit2 = c2.getFitness();
+			return Double.compare(Fit1,Fit2);
+		}
+	};
 	
 }
