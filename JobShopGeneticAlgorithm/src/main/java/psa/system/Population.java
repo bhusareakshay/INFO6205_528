@@ -22,8 +22,6 @@ public class Population {
 		generationMap = new HashMap<Integer, Generation>();
 		createGeneration0();
 
-
- e41a04e1ae1e13b3a6eec4e9d9f7d3123860c524
 	}
 
 	public static Population getInstance() {
@@ -72,7 +70,6 @@ public class Population {
 		Candidate candidate = new Candidate();
 		List<String> chromosomeList = candidate.getChromosomesList();
 		List<Integer> machineList = new ArrayList<Integer>(Generator.getMachineMap().keySet());
-<<<<<<< HEAD
 		List<Integer> jobList = new ArrayList<Integer>(Generator.getJobMap().keySet());
 		
 		machineList = Generator.getInstance().shuffleIntegerList(machineList);
