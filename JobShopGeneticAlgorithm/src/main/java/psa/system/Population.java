@@ -18,7 +18,7 @@ public class Population {
 	private Map<Integer, Generation> generationMap;
 
 	private Population() {
-		operationJob = new int[Constants.TOTAL_OPERATIONS][Constants.TOTAL_JOBS];
+		operationJob = new int[Constants.TOTAL_JOBS][Constants.TOTAL_OPERATIONS];
 		generationMap = new HashMap<Integer, Generation>();
 		createGeneration0();
 
@@ -53,6 +53,8 @@ public class Population {
 	public void createGeneration0() {
 		Generation gen = new Generation();
 		List<Candidate> candidateList = null;
+
+	
 		for (int i = 0; i < Constants.POPULATION_SIZE / 10; i++) {
 			candidateList = gen.getCandidateList();
 			candidateList.add(createCandidate());
@@ -68,20 +70,32 @@ public class Population {
 		Candidate candidate = new Candidate();
 		List<String> chromosomeList = candidate.getChromosomesList();
 		List<Integer> machineList = new ArrayList<Integer>(Generator.getMachineMap().keySet());
-
+		List<Integer> jobList = new ArrayList<Integer>(Generator.getJobMap().keySet());
+		
 		machineList = Generator.getInstance().shuffleIntegerList(machineList);
 		for (int i = 0; i < Constants.TOTAL_OPERATIONS; i++) {
 			machineList = Generator.getInstance().shuffleIntegerList(machineList);
+			jobList = Generator.getInstance().shuffleIntegerList(jobList);
 			int k = 0;
 			for (int j = 0; j < Constants.TOTAL_JOBS; j++) {
-				operationJob[i][j] = machineList.get(j % machineList.size());
-				String chromosome = String.format("%02d", i) + String.format("%02d", j)
-									+ String.format("%02d", operationJob[i][j]);
+				
+				if(j >= machineList.size()-1 ) {
+					machineList = Generator.getInstance().shuffleIntegerList(machineList);
+				}
+				operationJob[jobList.get(j)][i] = machineList.get(j % machineList.size());
+
+				// System.out.println("operationJob[i][j]:::::::::::::;"+operationJob[i][j]);
+				String chromosome = String.format("%02d", i) + String.format("%02d", jobList.get(j))
+						+ String.format("%02d", operationJob[jobList.get(j)][i]);
+
 				chromosomeList.add(chromosome);
 			}
+
 		}
-		System.out.println(chromosomeList);
+
 		candidate.setChromosomesList(chromosomeList);
+	//	 System.out.println(chromosomeList);
+
 		return candidate;
 	}
 }
