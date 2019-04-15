@@ -94,9 +94,18 @@ public class Generator {
 	public void  timeArray() {
 		for (int i = 0; i < Constants.TOTAL_JOBS; i++) {
 			for (int j = 0; j < Constants.TOTAL_MACHINES; j++) {
-				Constants.JMEXECUTIONTIME[i][j] = (new Random().nextInt(10) + 1) * 10;
-			System.out.println(i+":::"+j+":::"+Constants.JMEXECUTIONTIME[i][j]);
+				Constants.JMEXECUTIONTIME[i][j] = (new Random().nextInt(100) + 1) * 10;
+			//System.out.println(i+":::"+j+":::"+Constants.JMEXECUTIONTIME[i][j]);
 			}
 		}
+	}
+	
+	
+public List<Integer> shuffleIntegerList(List<Integer> intList){
+		
+		for(int i = 0; i<Constants.SHUFFLE_REPEAT; i++) {
+			Collections.shuffle(intList);
+		}
+		return intList;
 	}
 }

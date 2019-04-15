@@ -39,6 +39,11 @@ public class Candidate {
 	public void setChromosomesList(List<String> chromosomesList) {
 		this.chromosomesList = chromosomesList;
 	}
+	
+	
+
+
+
 
 	public static Comparator<Candidate> CanComparator = new Comparator<Candidate>() {
 		public int compare(Candidate c1, Candidate c2) {
