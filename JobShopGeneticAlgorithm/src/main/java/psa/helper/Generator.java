@@ -1,6 +1,7 @@
 package psa.helper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class Generator {
 
 		generateJobs();
 		generateMachines();
-		 timeArray();
+		timeArray();
 	}
 
 	public static Map<Integer, Machine> getMachineMap() {
@@ -96,12 +97,13 @@ public class Generator {
 			for (int j = 0; j < Constants.TOTAL_MACHINES; j++) {
 				Constants.JMEXECUTIONTIME[i][j] = (new Random().nextInt(100) + 1) * 10;
 			//System.out.println(i+":::"+j+":::"+Constants.JMEXECUTIONTIME[i][j]);
+			System.out.println(i+":::"+j+":::"+Constants.JMEXECUTIONTIME[i][j]);
 			}
 		}
 	}
 	
 	
-public List<Integer> shuffleIntegerList(List<Integer> intList){
+	public List<Integer> shuffleIntegerList(List<Integer> intList){
 		
 		for(int i = 0; i<Constants.SHUFFLE_REPEAT; i++) {
 			Collections.shuffle(intList);
