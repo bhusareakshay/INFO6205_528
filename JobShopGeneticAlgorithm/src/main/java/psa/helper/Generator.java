@@ -96,6 +96,7 @@ public class Generator {
 		for (int i = 0; i < Constants.TOTAL_JOBS; i++) {
 			for (int j = 0; j < Constants.TOTAL_MACHINES; j++) {
 				Constants.JMEXECUTIONTIME[i][j] = (new Random().nextInt(100) + 1) * 10;
+			//System.out.println(i+":::"+j+":::"+Constants.JMEXECUTIONTIME[i][j]);
 			System.out.println(i+":::"+j+":::"+Constants.JMEXECUTIONTIME[i][j]);
 			}
 		}

@@ -2,7 +2,7 @@ package psa.model;
 
 public class Constants {
 	
-	public static final int TOTAL_JOBS = 20;
+	public static final int TOTAL_JOBS = 30;
 	public static final int TOTAL_MACHINES = 20;
 	public static final int TOTAL_OPERATIONS = 20;
 	public static final int POPULATION_SIZE = 1000;

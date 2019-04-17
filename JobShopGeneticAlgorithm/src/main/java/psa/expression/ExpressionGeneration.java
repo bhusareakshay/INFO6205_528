@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 
 import psa.system.Population;
 import psa.model.Generation;
+import psa.fitness.FitnessCalculation;
 import psa.helper.Generator;
 import psa.model.Job;
 import psa.model.Machine;
@@ -25,6 +26,7 @@ public class ExpressionGeneration {
 	}
 
 	public void CalculateExpression() {
+		System.out.println("CalculateExpression::::::::::::::::::::::::;;");
 		Population p = Population.getInstance();
 		// OOJJMM
 		// String[] candi = { "010101", "010102", "020103" };
@@ -43,38 +45,41 @@ public class ExpressionGeneration {
 				job = Integer.parseInt(chromozome.substring(2, 4));
 				machine = Integer.parseInt(chromozome.substring(4));
 
-				System.out.println("J::" + job);
+		//		System.out.println("J::" + job);
 
 				Machine m = g.getMachineMap().get(machine);
 				//m.setCurrentTime(0);
-				System.out.println("jobsize:::" + g.getJobMap().size());
+			//	System.out.println("jobsize:::" + g.getJobMap().size());
 				Job j = g.getJobMap().get(job);
 				// j.setEndTime(0);
 				// j.setStartTime(0);
 
 				calculateDuration(m, j);
 
-				System.out.println("machine::::" + machine + "time:::::" + m.getCurrentTime());
-				System.out.println("JOb  ::::::" + job + " end time:::: " + j.getEndTime());
-				System.out.println("JOb ::::::" + job + "start time:::" + j.getStartTime());
+				//System.out.println("machine::::" + machine + "time:::::" + m.getCurrentTime());
+				//System.out.println("JOb  ::::::" + job + " end time:::: " + j.getEndTime());
+				//System.out.println("JOb ::::::" + job + "start time:::" + j.getStartTime());
 				//System.out.println("gene::::::");
 			}
-			System.out.println("Candidiate:::::::::::::::::::::::::----------------------------------" + c);
+		//	System.out.println("Candidiate:::::::::::::::::::::::::----------------------------------" + c);
 			calculateTMax(candidate);
 			g.resetJobs();
 			g.resetMachines();
 		}
+		
+//		 FitnessCalculation fit = new FitnessCalculation();
+//	       fit.fitness();
 	}
 
 	public void calculateDuration(Machine m, Job j) {
 		executionTime = Constants.JMEXECUTIONTIME[job][machine];
-		System.out.println("in calculate:::");
+	//	System.out.println("in calculate:::");
 
 		int jobEndTime = j.getEndTime();
-		System.out.println("jobEndTime::::" + jobEndTime);
+	//	System.out.println("jobEndTime::::" + jobEndTime);
 
 		int prevMcTime = m.getCurrentTime();
-		System.out.println("machine time::" + prevMcTime);
+	//	System.out.println("machine time::" + prevMcTime);
 
 		if (jobEndTime == 0) {
 
@@ -103,8 +108,10 @@ public class ExpressionGeneration {
 			
 			tMax = i.getValue().getCurrentTime()>tMax ? i.getValue().getCurrentTime() : tMax;
 			
+			
 		}
-		System.out.println("tMax...."+tMax);
+	//	System.out.println("T::::::"+tMax);
+		//System.out.println("tMax...."+tMax);
 		candidate.settMax(tMax);
 	}
 
