@@ -55,7 +55,7 @@ public class Population {
 		List<Candidate> candidateList = null;
 
 	
-		for (int i = 0; i < Constants.POPULATION_SIZE / 10; i++) {
+		for (int i = 0; i < Constants.POPULATION_SIZE; i++) {
 			candidateList = gen.getCandidateList();
 			candidateList.add(createCandidate());
 		}
