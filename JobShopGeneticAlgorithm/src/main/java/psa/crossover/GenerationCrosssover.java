@@ -26,7 +26,7 @@ public class GenerationCrosssover {
 
 	public void doCrossover() {
 		System.out.println("in crossover::::::::::::::::::::::::::::::::::::::");
-
+		System.out.println("Crossover factor:"+Constants.CROSSOVER_FACTOR);
 		Random rand = new Random();
 
 		Generation currentGen = p.getGenerationMap().get(Collections.max(p.getGenerationMap().keySet()));
@@ -37,7 +37,9 @@ public class GenerationCrosssover {
 
 		addFittestCandidates();
 		// int size = prevGenerationCandiList.size()/0.9;
-		for (int i = 0; i < prevGenerationCandiList.size() * 0.9; i++) {
+		double factor =(100- (double)Constants.CROSSOVER_FACTOR)/100;
+	int genfactor = 	(int) (prevGenerationCandiList.size() * factor);
+		for (int i = 0; i < genfactor; i++) {
 			parent1 = rand.nextInt(prevGenerationCandiList.size());
 			parent2 = rand.nextInt(prevGenerationCandiList.size());
 			// System.out.println("P1:::::::::"+parent1+"P2:::::::"+parent2);
@@ -99,17 +101,19 @@ public class GenerationCrosssover {
 		int maxkey = Collections.max(p.getGenerationMap().keySet());
 		p.getGenerationMap().put(maxkey + 1, newGen);
 		System.out.println("MKey ::::" + (maxkey + 1));
-		if (maxkey + 1 == 80) {
-			for (int i = 0; i < p.getGenerationMap().get(maxkey + 1).getCandidateList().size(); i++) {
-				System.out.println("a:::::::::::"
-						+ p.getGenerationMap().get(maxkey + 1).getCandidateList().get(i).getChromosomesList());
-			}
-		}
+		/*
+		 * if (maxkey + 1 == 80) { for (int i = 0; i < p.getGenerationMap().get(maxkey +
+		 * 1).getCandidateList().size(); i++) { //System.out.println("a:::::::::::" +
+		 * p.getGenerationMap().get(maxkey +
+		 * 1).getCandidateList().get(i).getChromosomesList()); } }
+		 */
 	}
 
 	public void addFittestCandidates() {
-		candidateList.addAll(prevGenerationCandiList.subList(0, (prevGenerationCandiList.size()) / Constants.CROSSOVER_FACTOR));
-		System.out.println(candidateList.size());
+		double factor = (double)Constants.CROSSOVER_FACTOR/100;
+		int intFactor = (int) (prevGenerationCandiList.size()*factor);
+		candidateList.addAll(prevGenerationCandiList.subList(0,intFactor));
+		System.out.println("fittest candi list size.."+candidateList.size());
 	}
 
 	public Boolean calculateExit() {

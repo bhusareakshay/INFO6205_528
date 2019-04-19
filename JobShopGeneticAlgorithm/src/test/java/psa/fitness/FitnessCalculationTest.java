@@ -2,6 +2,8 @@ package psa.fitness;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Collections;
+
 import org.junit.Test;
 
 import psa.expression.ExpressionGeneration;
@@ -16,56 +18,69 @@ public class FitnessCalculationTest {
 	public void TestFittest() {
 		Generator.getInstance();
 		Population p = Population.getInstance();
-		p.createGeneration0();
+		if (p.getGenerationMap().size() == 0) {
+			p.createGeneration0();
+		}
 		ExpressionGeneration exp = new ExpressionGeneration();
 		exp.CalculateExpression();
 		FitnessCalculation fc = new FitnessCalculation();
 		fc.fitness();
 		Generation g = p.getGenerationMap().get(0);
 		boolean max = false;
-		for(Candidate c:g.getCandidateList()) {
-			if(c.getFitness() <= g.getFittest()) {
+		for (Candidate c : g.getCandidateList()) {
+			if (c.getFitness() <= g.getFittest()) {
 				max = true;
 			}
 		}
-		assertEquals(true,max);	
+		assertEquals(true, max);
 	}
-	
+
 	@Test
 	public void TestInfinity() {
+		Generator.getInstance();
 		Population p = Population.getInstance();
-		p.createGeneration0();
+		if (p.getGenerationMap().size() == 0) {
+			p.createGeneration0();
+		}
 		ExpressionGeneration exp = new ExpressionGeneration();
 		exp.CalculateExpression();
 		FitnessCalculation fc = new FitnessCalculation();
 		fc.fitness();
 		Generation g = p.getGenerationMap().get(0);
 		boolean infinite = false;
-		for(Candidate c:g.getCandidateList()) {
-			try{
-				double inv = 1/c.gettMax();
-				if( 1/inv == 0.0){
+		for (Candidate c : g.getCandidateList()) {
+			try {
+				double inv = 1 / c.gettMax();
+				if (1 / inv == 0.0) {
 					infinite = true;
 				}
-			}catch(Exception e) {
-				
+			} catch (Exception e) {
+
 			}
 		}
-		assertEquals(false,infinite);	
+		assertEquals(false, infinite);
 	}
-	
+
 	@Test
 	public void TestFitness() {
 		Generator.getInstance();
 		Population p = Population.getInstance();
-		p.createGeneration0();
+		p.getGenerationMap().clear();
+		System.out.println("SSSSSSS"+p.getGenerationMap().size());
+		if (p.getGenerationMap().size() == 0) {
+			p.createGeneration0();
+		}
 		ExpressionGeneration exp = new ExpressionGeneration();
 		exp.CalculateExpression();
-		p.getGenerationMap().get(0).getCandidateList().get(0).settMax(2);
+		Candidate c = p.getGenerationMap().get(Collections.max(p.getGenerationMap().keySet())).getCandidateList()
+						.get(0);
+		c.settMax(1);
 		FitnessCalculation fc = new FitnessCalculation();
 		fc.fitness();
-		
-		assertEquals(0.5, p.getGenerationMap().get(0).getFittest(), 0.0);
+		System.out.println("eeeeeeeeeeeeeeeeeee   " + c.gettMax());
+		System.out.println("eeeeeeeeeeeeeeeeeee   " + c.getFitness());
+
+		assertEquals(1.0, c.getFitness(), 0.0);
 	}
-	
+
 }
