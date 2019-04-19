@@ -16,6 +16,7 @@ public class Population {
 	private static Population population;
 	private int[][] operationJob;
 	private Map<Integer, Generation> generationMap;
+	Map mcJob = new HashMap<Integer, List<String>>();
 
 	private Population() {
 		operationJob = new int[Constants.TOTAL_JOBS][Constants.TOTAL_OPERATIONS];
@@ -54,8 +55,7 @@ public class Population {
 		Generation gen = new Generation();
 		List<Candidate> candidateList = null;
 
-	
-		for (int i = 0; i < Constants.POPULATION_SIZE / 10; i++) {
+		for (int i = 0; i < Constants.POPULATION_SIZE; i++) {
 			candidateList = gen.getCandidateList();
 			candidateList.add(createCandidate());
 		}
@@ -66,36 +66,95 @@ public class Population {
 	/*
 	 * Method to create Candidates/Individuals of a generation/population
 	 */
+	/**/
 	public Candidate createCandidate() {
 		Candidate candidate = new Candidate();
 		List<String> chromosomeList = candidate.getChromosomesList();
 		List<Integer> machineList = new ArrayList<Integer>(Generator.getMachineMap().keySet());
 		List<Integer> jobList = new ArrayList<Integer>(Generator.getJobMap().keySet());
-		
-		machineList = Generator.getInstance().shuffleIntegerList(machineList);
-		for (int i = 0; i < Constants.TOTAL_OPERATIONS; i++) {
-			machineList = Generator.getInstance().shuffleIntegerList(machineList);
-			jobList = Generator.getInstance().shuffleIntegerList(jobList);
-			int k = 0;
-			for (int j = 0; j < Constants.TOTAL_JOBS; j++) {
-				
-				if(j >= machineList.size()-1 ) {
-					machineList = Generator.getInstance().shuffleIntegerList(machineList);
-				}
-				operationJob[jobList.get(j)][i] = machineList.get(j % machineList.size());
+		String s = null;
+		createuniqueCandi();
+		  
+		  machineList = Generator.getInstance().shuffleIntegerList(machineList);
+		  jobList = Generator.getInstance().shuffleIntegerList(jobList);
 
-				// System.out.println("operationJob[i][j]:::::::::::::;"+operationJob[i][j]);
-				String chromosome = String.format("%02d", i) + String.format("%02d", jobList.get(j))
-						+ String.format("%02d", operationJob[jobList.get(j)][i]);
+		int k = 0;
+		for (int j = 0; j < Constants.TOTAL_OPERATIONS; j++) {
+
+			for (int m = 0; m < jobList.size(); m++) {
+
+				List<String> cm = (List<String>) mcJob.get(jobList.get(m));
+				String s1 = cm.get(machineList.get(j));
+
+				String chromosome = String.format("%02d", j % Constants.TOTAL_OPERATIONS) + s1;
 
 				chromosomeList.add(chromosome);
 			}
-
 		}
 
 		candidate.setChromosomesList(chromosomeList);
-	//	 System.out.println(chromosomeList);
+		//System.out.println(chromosomeList);
 
 		return candidate;
+	}
+
+	public void createuniqueCandi() {
+		for (int i = 0; i < Constants.TOTAL_JOBS; i++) {
+			List<String> mcJ = new ArrayList<String>();
+			for (int j = 0; j < Constants.TOTAL_MACHINES; j++) {
+				String a = String.format("%02d", i);
+				String b = String.format("%02d", j);
+				String x = a + b;
+
+				// System.out.println("Job:::"+x);
+				mcJ.add(x);
+
+			}
+			Collections.shuffle(mcJ);
+			mcJob.put(i, mcJ);
+		}
+
+		
+
+		 /* public Candidate createCandidate1() { Candidate candidate = new Candidate();
+		 * List<String> chromosomeList = candidate.getChromosomesList(); List<Integer>
+		 * machineList = new ArrayList<Integer>(Generator.getMachineMap().keySet());
+		 * List<Integer> jobList = new
+		 * ArrayList<Integer>(Generator.getJobMap().keySet());
+		 * 
+		 * // machineList = Generator.getInstance().shuffleIntegerList(machineList); for
+		 * (int i = 0; i < Constants.TOTAL_OPERATIONS; i++) { // machineList =
+		 * Generator.getInstance().shuffleIntegerList(machineList); // jobList =
+		 * Generator.getInstance().shuffleIntegerList(jobList); int k = 0; for (int j =
+		 * 0; j < Constants.TOTAL_JOBS; j++) {
+		 * 
+		 * // if(j >= machineList.size()-1 ) { // machineList =
+		 * Generator.getInstance().shuffleIntegerList(machineList); // }
+		 * operationJob[jobList.get(j)][i] = machineList.get(j % machineList.size());
+		 * 
+		 * // System.out.println("operationJob[i][j]:::::::::::::;"+operationJob[i][j]);
+		 * String chromosome = String.format("%02d", i) + String.format("%02d",
+		 * jobList.get(j)) + String.format("%02d", operationJob[jobList.get(j)][i]);
+		 * 
+		 * chromosomeList.add(chromosome); }
+		 * 
+		 * }
+		 * 
+		 * candidate.setChromosomesList(chromosomeList); //
+		 * System.out.println(chromosomeList);
+		 * 
+		 * return candidate; }
+		 */
+//	
+//	for(int i  = 0 ; i<Constants.TOTAL_JOBS; i++) {
+//		System.out.println("i:::::::::::"+i);
+//		List<String> abc = (List<String>) mcJob.get(i);
+//		for(int j = 0 ; j<abc.size(); j++) {
+//			System.out.println("j::::"+abc.get(j));
+//			
+//		}
+//		
+//	}
+//	
 	}
 }
