@@ -26,11 +26,8 @@ public class ExpressionGeneration {
 	}
 
 	public void CalculateExpression() {
-		System.out.println("CalculateExpression::::::::::::::::::::::::;;");
+		
 		Population p = Population.getInstance();
-		// OOJJMM
-		// String[] candi = { "010101", "010102", "020103" };
-
 		Generation currentGen = p.getGenerationMap().get(Collections.max(p.getGenerationMap().keySet()));
 
 		List<Candidate> candidateList = currentGen.getCandidateList();
@@ -44,45 +41,23 @@ public class ExpressionGeneration {
 				int operation = Integer.parseInt(chromozome.substring(0, 2));
 				job = Integer.parseInt(chromozome.substring(2, 4));
 				machine = Integer.parseInt(chromozome.substring(4));
-
-		//		System.out.println("J::" + job);
-
 				Machine m = g.getMachineMap().get(machine);
-				//m.setCurrentTime(0);
-			//	System.out.println("jobsize:::" + g.getJobMap().size());
 				Job j = g.getJobMap().get(job);
-				// j.setEndTime(0);
-				// j.setStartTime(0);
-
 				calculateDuration(m, j);
 
-				//System.out.println("machine::::" + machine + "time:::::" + m.getCurrentTime());
-				//System.out.println("JOb  ::::::" + job + " end time:::: " + j.getEndTime());
-				//System.out.println("JOb ::::::" + job + "start time:::" + j.getStartTime());
-				//System.out.println("gene::::::");
 			}
-		//	System.out.println("Candidiate:::::::::::::::::::::::::----------------------------------" + c);
+
 			calculateTMax(candidate);
 			g.resetJobs();
 			g.resetMachines();
 		}
-		
-//		 FitnessCalculation fit = new FitnessCalculation();
-//	       fit.fitness();
 	}
 
 	public void calculateDuration(Machine m, Job j) {
 		executionTime = Constants.JMEXECUTIONTIME[job][machine];
-	//	System.out.println("in calculate:::");
-
 		int jobEndTime = j.getEndTime();
-	//	System.out.println("jobEndTime::::" + jobEndTime);
-
 		int prevMcTime = m.getCurrentTime();
-	//	System.out.println("machine time::" + prevMcTime);
-
 		if (jobEndTime == 0) {
-
 			m.setCurrentTime(prevMcTime + executionTime);
 			j.setStartTime(prevMcTime);
 			j.setEndTime(prevMcTime + executionTime);
@@ -103,15 +78,11 @@ public class ExpressionGeneration {
 	
 	public void calculateTMax(Candidate candidate) {
 		int tMax = 0;
-		//List<Machine> machineList = (List<Machine>) g.getMachineMap().values();
-		for(Entry<Integer, Machine> i :g.getMachineMap().entrySet()) {
-			
+	
+		for(Entry<Integer, Machine> i :g.getMachineMap().entrySet()) {		
 			tMax = i.getValue().getCurrentTime()>tMax ? i.getValue().getCurrentTime() : tMax;
 			
-			
 		}
-	//	System.out.println("T::::::"+tMax);
-		//System.out.println("tMax...."+tMax);
 		candidate.settMax(tMax);
 	}
 

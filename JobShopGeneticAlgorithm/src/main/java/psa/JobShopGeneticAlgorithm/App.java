@@ -25,7 +25,7 @@ public class App
 		 */
     	
 		
-		  System.out.println( "Hello World!" ); 
+		  System.out.println( "-----Job Shop scheduling Problem-----" ); 
 		  Generator.getInstance(); 
 		  Population p = Population.getInstance(); 
 		  for (int i = 0 ; i< 100; i++) {
@@ -38,5 +38,14 @@ public class App
 		  
 		  gc.doCrossover(); }
 		 
+		  
+		  // display fittest candidate
+		Generation currentGen = p.getGenerationMap().get(Collections.max(p.getGenerationMap().keySet()));  
+	    List  <String>  candi = (List<String>) currentGen.getCandidateList().get(0).getChromosomesList();
+		System.out.println("--------------Fittest Candidate----------------");
+	    for(int i= 0  ; i< candi.size(); i++ ) {
+		System.out.print(" -"+candi.get(i)+ "-" );	
+		
+		}
     }
 }
