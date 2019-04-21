@@ -25,8 +25,6 @@ public class GenerationCrosssover {
 	}
 
 	public void doCrossover() {
-		System.out.println("in crossover::::::::::::::::::::::::::::::::::::::");
-		System.out.println("Crossover factor:"+Constants.CROSSOVER_FACTOR);
 		Random rand = new Random();
 
 		Generation currentGen = p.getGenerationMap().get(Collections.max(p.getGenerationMap().keySet()));
@@ -36,13 +34,12 @@ public class GenerationCrosssover {
 		candidateList = new ArrayList<Candidate>();
 
 		addFittestCandidates();
-		// int size = prevGenerationCandiList.size()/0.9;
-		double factor =(100- (double)Constants.CROSSOVER_FACTOR)/100;
-	int genfactor = 	(int) (prevGenerationCandiList.size() * factor);
+
+		double factor = (100 - (double) Constants.CROSSOVER_FACTOR) / 100;
+		int genfactor = (int) (prevGenerationCandiList.size() * factor);
 		for (int i = 0; i < genfactor; i++) {
 			parent1 = rand.nextInt(prevGenerationCandiList.size());
 			parent2 = rand.nextInt(prevGenerationCandiList.size());
-			// System.out.println("P1:::::::::"+parent1+"P2:::::::"+parent2);
 
 			List<String> parent1Chromozome = prevGenerationCandiList.get(parent1).getChromosomesList();
 			List<String> parent2Chromozome = prevGenerationCandiList.get(parent2).getChromosomesList();
@@ -58,14 +55,6 @@ public class GenerationCrosssover {
 		}
 
 		createNewGeneration();
-		// Boolean isExit = calculateExit();
-
-//	if(!isExit) {
-//		createNewGeneration();
-//		 ExpressionGeneration  eg = new ExpressionGeneration();
-//	       eg.CalculateExpression();
-//	}
-//	
 
 	}
 
@@ -73,7 +62,6 @@ public class GenerationCrosssover {
 	public Candidate createChildCandidate() {
 
 		Candidate childCandidate = new Candidate();
-//	System.out.println("childChromozome:::::::::"+childChromozome.size());
 		childCandidate.setChromosomesList(childChromozome);
 		childCandidate.setFitness(0);
 		childCandidate.settMax(0);
@@ -84,41 +72,26 @@ public class GenerationCrosssover {
 // method to create new generation
 	public void createNewGeneration() {
 		Generation newGen = new Generation();
-		// System.out.println("Generationnum:::::::::::::"+p.getGenerationMap().keySet()+1);
-		for (int i = 0; i < candidateList.size(); i++) {
-			// System.out.println("candi::::"+candidateList.get(i));
-			List<String> chr = candidateList.get(i).getChromosomesList();
-//  for (String s : chr) {
-////	  System.out.print(s+"-");
-//	  
-//  }
-			// System.out.println();
-			// System.out.println("---------------------------------------------------------------------------------");
 
+		for (int i = 0; i < candidateList.size(); i++) {
+			List<String> chr = candidateList.get(i).getChromosomesList();
 		}
 		newGen.setCandidateList(candidateList);
 		newGen.setFittest(0);
 		int maxkey = Collections.max(p.getGenerationMap().keySet());
 		p.getGenerationMap().put(maxkey + 1, newGen);
-		System.out.println("MKey ::::" + (maxkey + 1));
-		/*
-		 * if (maxkey + 1 == 80) { for (int i = 0; i < p.getGenerationMap().get(maxkey +
-		 * 1).getCandidateList().size(); i++) { //System.out.println("a:::::::::::" +
-		 * p.getGenerationMap().get(maxkey +
-		 * 1).getCandidateList().get(i).getChromosomesList()); } }
-		 */
+
 	}
 
 	public void addFittestCandidates() {
-		double factor = (double)Constants.CROSSOVER_FACTOR/100;
-		int intFactor = (int) (prevGenerationCandiList.size()*factor);
-		candidateList.addAll(prevGenerationCandiList.subList(0,intFactor));
-		System.out.println("fittest candi list size.."+candidateList.size());
+		double factor = (double) Constants.CROSSOVER_FACTOR / 100;
+		int intFactor = (int) (prevGenerationCandiList.size() * factor);
+		candidateList.addAll(prevGenerationCandiList.subList(0, intFactor));
 	}
 
 	public Boolean calculateExit() {
 		int generationCount = 1;
-		System.out.println("in exit:::::");
+
 		double maxKey = p.getGenerationMap().get(Collections.max(p.getGenerationMap().keySet())).getFittest();
 		generationCount = Collections.max(p.getGenerationMap().keySet());
 		if (generationCount >= 10) {
@@ -127,16 +100,16 @@ public class GenerationCrosssover {
 
 				if (maxKey == p.getGenerationMap().get(generationCount).getFittest()) {
 					generationCount--;
-					System.out.println("in for:: if::");
+
 				} else {
-					System.out.println("in first Else");
+
 					return false;
 				}
 			}
-			System.out.println("in returing true::::");
+
 			return true;
 		} else {
-			System.out.println("in second Else  false::");
+
 			return false;
 		}
 	}

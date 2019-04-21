@@ -80,7 +80,7 @@ public class FitnessCalculationTest {
 		System.out.println("eeeeeeeeeeeeeeeeeee   " + c.gettMax());
 		System.out.println("eeeeeeeeeeeeeeeeeee   " + c.getFitness());
 
-		assertEquals(1.0, c.getFitness(), 0.0);
+		assertEquals(1.0 * Math.pow(10, 7), c.getFitness(), 0.0);
 	}
 
 }

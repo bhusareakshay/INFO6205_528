@@ -1,5 +1,4 @@
 package psa.system;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -93,8 +92,6 @@ public class Population {
 		}
 
 		candidate.setChromosomesList(chromosomeList);
-		//System.out.println(chromosomeList);
-
 		return candidate;
 	}
 
@@ -105,8 +102,6 @@ public class Population {
 				String a = String.format("%02d", i);
 				String b = String.format("%02d", j);
 				String x = a + b;
-
-				// System.out.println("Job:::"+x);
 				mcJ.add(x);
 
 			}
