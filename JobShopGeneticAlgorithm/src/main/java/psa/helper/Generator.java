@@ -93,14 +93,33 @@ public class Generator {
 	}
 
 	public void  timeArray() {
+		System.out.println("--------------------------Time Array[Start]      [JOB * MACHINE]   -----------------------");
+		System.out.println();
 		for (int i = 0; i < Constants.TOTAL_JOBS; i++) {
+			//System.out.print("i"+i+"\t");
 			for (int j = 0; j < Constants.TOTAL_MACHINES; j++) {
 				Constants.JMEXECUTIONTIME[i][j] = (new Random().nextInt(100) + 1) * 10;
-			//System.out.println(i+":::"+j+":::"+Constants.JMEXECUTIONTIME[i][j]);
+				System.out.print(Constants.JMEXECUTIONTIME[i][j]+"\t");
+			//System.out.print(i+":::"+j+":::"+Constants.JMEXECUTIONTIME[i][j]);
 			//System.out.println(i+":::"+j+":::"+Constants.JMEXECUTIONTIME[i][j]);
 			}
+			System.out.println();
 		}
+		System.out.println();
+		System.out.println("--------------------------Time Array[End]-----------------------");
+		System.out.println();
 	}
+	
+	
+//	public void  timeArray() {
+//		for (int i = 0; i < Constants.TOTAL_JOBS; i++) {
+//			for (int j = 0; j < Constants.TOTAL_MACHINES; j++) {
+//				Constants.JMEXECUTIONTIME[i][j] = (new Random().nextInt(100) + 1) * 10;
+//			//System.out.println(i+":::"+j+":::"+Constants.JMEXECUTIONTIME[i][j]);
+//			//System.out.println(i+":::"+j+":::"+Constants.JMEXECUTIONTIME[i][j]);
+//			}
+//		}
+//	}
 	
 	
 	public List<Integer> shuffleIntegerList(List<Integer> intList){
