@@ -1,4 +1,4 @@
-# Job Shop Scheduling
+# Job Shop Scheduling Problem
 
 ## Introduction
 
